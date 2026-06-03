@@ -1,40 +1,29 @@
-.categories-container {
-  background-color: #ffffff;
-  padding: 20px;
-  border-radius: 12px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  max-width: 300px;
-  margin: 20px auto;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+.category-post-page {
+  padding-top: 2rem;
+  padding-bottom: 2rem;
 }
 
-.categories-container h4 {
-  font-size: 1.5rem;
-  color: #333;
-  margin-bottom: 15px;
-  text-align: center;
-  border-bottom: 2px solid orange;
-  display: inline-block;
-  padding-bottom: 5px;
+.category-post-content {
+  padding: 2.5rem;
 }
 
-.categories-container ul {
-  list-style: none;
-  padding: 0;
+.category-header {
+  margin-bottom: 2rem;
+}
+
+.category-subtitle {
+  color: var(--text-secondary);
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border-left: 4px solid var(--btn-accent-end);
+  padding-left: 0.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.category-title {
+  color: var(--nav-bg-start);
+  font-size: 2.5rem;
+  font-weight: 800;
   margin: 0;
-}
-
-.categories-container li {
-  padding: 10px 15px;
-  margin-bottom: 10px;
-  background-color: #f8f9fa;
-  border-left: 4px solid orange;
-  border-radius: 6px;
-  transition: background-color 0.3s ease, transform 0.2s ease;
-  cursor: pointer;
-}
-
-.categories-container li:hover {
-  background-color: #ffe8cc;
-  transform: translateX(5px);
 }

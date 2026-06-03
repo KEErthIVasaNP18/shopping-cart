@@ -35,25 +35,21 @@ function CategoryPost() {
 
     return (
 
-        <div className="container my-4">
-            <div className="bg-light p-4 rounded shadow-sm">
-                <h4 className="text-secondary border-start border-4 ps-2 border-warning mb-3">Categories</h4>
-
-                <h1 className="text-dark fw-bold mb-4">{category.Category}  </h1>
+        <div className="category-post-page page-container">
+            <div className="category-post-content glass-card">
+                <div className="category-header">
+                    <h4 className="category-subtitle">Categories</h4>
+                    <h1 className="category-title">{category.Category}</h1>
+                </div>
 
                 {posts.length > 0 ? (
-                    <div className="row g-4">
+                    <div className="product-grid">
                         {posts.map((product) => (
-                            <div key={product._id} className="col-md-4">
-                                <Post product={product} />
-                            </div>
-
+                            <Post key={product._id} product={product} />
                         ))}
-
-
                     </div>
                 ) : (
-                    <h3 className="text-muted text-center mt-5">No Products available</h3>
+                    <h3 className="no-products-msg">No Products available</h3>
                 )}
             </div>
         </div>

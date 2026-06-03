@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import "./razorpay.css"
 
 const RazorpayPayment = () => {
@@ -8,10 +9,12 @@ const RazorpayPayment = () => {
   const navigate = useNavigate();
   const amount = location.state?.amount || 0;
 
-  const [email, setEmail] = useState('');
+  const { isAuthenticated, user } = useSelector(state => state.auth);
+
+  const [email, setEmail] = useState(isAuthenticated && user ? user.email : '');
   const [otpSent, setOtpSent] = useState(false);
   const [enteredOtp, setEnteredOtp] = useState('');
-  const [verified, setVerified] = useState(false);
+  const [verified, setVerified] = useState(isAuthenticated);
 
   useEffect(() => {
     const script = document.createElement("script");
@@ -87,7 +90,10 @@ const RazorpayPayment = () => {
             console.error(error);
           }
         },
-        theme: { color: '#3399cc' }
+        theme: { color: '#3399cc' },
+        prefill: {
+            email: email
+        }
       };
 
       const rzp = new window.Razorpay(options);
@@ -103,24 +109,36 @@ const RazorpayPayment = () => {
       <h3>Confirm Payment</h3>
       <p>Total Amount: ₹{amount}</p>
 
-      <input
-        type="email"
-        placeholder="Enter your email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-      />
-
-      {!otpSent ? (
-        <button className="btn-primary" onClick={sendOtp}>Send OTP</button>
+      {isAuthenticated ? (
+        <div className="auth-status-msg" style={{marginBottom: '20px', color: '#10B981', fontWeight: 'bold'}}>
+          <p>Logged in as: {user?.email}</p>
+          <p>Verification successful. You can proceed to payment.</p>
+        </div>
       ) : (
         <>
           <input
-            type="text"
-            placeholder="Enter OTP"
-            value={enteredOtp}
-            onChange={(e) => setEnteredOtp(e.target.value)}
+            type="email"
+            placeholder="Enter your email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            disabled={verified}
           />
-          <button className="btn-info" onClick={verifyOtp}>Verify OTP</button>
+
+          {!verified && !otpSent && (
+            <button className="btn-primary" onClick={sendOtp}>Send OTP</button>
+          )}
+          
+          {!verified && otpSent && (
+            <>
+              <input
+                type="text"
+                placeholder="Enter OTP"
+                value={enteredOtp}
+                onChange={(e) => setEnteredOtp(e.target.value)}
+              />
+              <button className="btn-info" onClick={verifyOtp}>Verify OTP</button>
+            </>
+          )}
         </>
       )}
 

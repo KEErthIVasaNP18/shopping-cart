@@ -1,93 +1,67 @@
 import { Link } from "react-router-dom";
 import './post.css'
-import { useCart } from '../CartContext';
-
+import { useDispatch, useSelector } from 'react-redux';
+import { addToCart } from '../redux/cartSlice';
+import { addToWishlist, removeFromWishlist } from '../redux/wishlistSlice';
+import { FaHeart, FaRegHeart } from 'react-icons/fa';
 
 function Post({ product }) {
-  const { addToCart } = useCart();
+    const dispatch = useDispatch();
+    const wishlistItems = useSelector(state => state.wishlist.items);
+    
+    const isInWishlist = wishlistItems.some(item => item._id === product._id);
 
-
+    const toggleWishlist = () => {
+        if (isInWishlist) {
+            dispatch(removeFromWishlist(product._id));
+        } else {
+            dispatch(addToWishlist(product));
+        }
+    };
 
     return (
-        <div>
-            <div className="bg-light py-5 min-vh-80">
+        <div className="product-card" data-aos="fade-up">
+            <div className="product-image-container">
+                <img
+                    src={product.Img}
+                    alt="Product"
+                    className="product-card-img"
+                />
+                <button 
+                    className={`wishlist-icon-btn ${isInWishlist ? 'active' : ''}`}
+                    onClick={toggleWishlist}
+                    title={isInWishlist ? "Remove from Wishlist" : "Add to Wishlist"}
+                >
+                    {isInWishlist ? <FaHeart className="heart-filled" /> : <FaRegHeart className="heart-outline" />}
+                </button>
+            </div>
 
-                <div className="container d-flex justify-content-center">
-                    <div className="card shadow rounded-4" style={{ maxWidth: '350px' }}>
-                        <img
-                            src={product.Img}
-                            alt="Product"
-                            className="card-img-top rounded-top-4"
-                            style={{
-                                height: '200px',
-                                objectFit: 'cover',
-                                opacity: 0,
-                                transform: 'translateY(20px)',
-                                animation: 'fadeUp 0.8s ease forwards',
-                                transition: 'filter 0.3s ease',
-                            }}
-                            onMouseEnter={(e) => {
-                                e.currentTarget.style.filter = 'brightness(1.1)';
-                            }}
-                            onMouseLeave={(e) => {
-                                e.currentTarget.style.filter = 'brightness(1)';
-                            }}
-                        />
+            <div className="product-card-body">
+                <h5 className="product-card-title">{product.Name}</h5>
+                <p className="product-card-text">
+                    <strong>About :</strong> {product.About?.length > 25 ? product.About.slice(0, 25) + '...' : product.About}
+                </p>
+                <p className="product-card-price">₹{product.Price}</p>
 
+                <div className="product-card-actions">
+                    <Link to={`/posts/${product._id}`} className="flex-1">
+                        <button className="btn btn-read-more">
+                            Read More
+                        </button>
+                    </Link>
 
-                        <div className="card-body">
-                            <h5 className="card-title">{product.Name}</h5>
-                            {/* <p className="card-text"><strong>Category :</strong> {product.Category} </p> */}
-                            <p className="card-text"><strong>About :</strong> {product.About?.length > 25 ? product.About.slice(0, 25) + '...'
-                                : product.About}</p>
-                            <p className="card-text"><strong>Price :</strong> {product.Price} </p>
-
-                            {/* <Link to={`/products/${product._id}`}><button className="btn w-100 mt-2" style={{ marginLeft: '5px' , backgroundColor:'orange' , fontSize:'large' , fontWeight:'600' , color:'white'}}>Add to Cart</button></Link> */}
-                            <Link to={`/posts/${product._id}`}>
-                                <button
-                                    className="btn w-40 mt-2"
-                                    style={{
-                                        marginLeft: '5px',
-                                        backgroundColor: 'orange',
-                                        fontSize: 'large',
-                                        fontWeight: '600',
-                                        color: 'white',
-                                        boxShadow: '0 4px 8px rgba(255, 165, 0, 0.4)', // Orange shadow
-                                        border: 'none',
-                                        borderRadius: '6px',
-                                        transition: 'transform 0.2s ease'
-                                    }}
-                                >
-                                    Read More
-                                </button>
-                            </Link>
-
-                             <Link to={'/cart'} >
-                                <button
-                                    className="btn w-40 mt-2"
-                                    onClick={() => addToCart(product)}
-                                    style={{
-                                        marginLeft: '5px',
-                                        backgroundColor: '#1060c2ff',
-                                        fontSize: 'large',
-                                        fontWeight: '600',
-                                        color: 'white',
-                                        boxShadow: '0 4px 8px rgba(8, 113, 179, 0.4)', // Orange shadow
-                                        border: 'none',
-                                        borderRadius: '6px',
-                                        transition: 'transform 0.2s ease'
-                                    }}
-                                >
-                                    Add to Cart
-                                </button>
-                            </Link>
-
-                        </div>
-                    </div>
+                    <Link to={'/cart'} className="flex-1">
+                        <button
+                            className="btn btn-add-cart"
+                            onClick={() => dispatch(addToCart(product))}
+                        >
+                            Add to Cart
+                        </button>
+                    </Link>
                 </div>
             </div>
         </div>
     );
 }
 
-export default Post
+export default Post;

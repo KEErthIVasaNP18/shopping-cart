@@ -1,51 +1,98 @@
-import { useNavigate } from 'react-router-dom';
 import React from 'react';
-import { useCart } from '../CartContext';
+import { useSelector, useDispatch } from 'react-redux';
+import { addToCart, removeFromCart } from '../redux/cartSlice';
+import { useNavigate } from 'react-router-dom';
 import './CartPage.css';
 
 const CartPage = () => {
-  const { cartItems, removeFromCart, updateQuantity } = useCart();
-  const navigate = useNavigate();
+    const cartItems = useSelector((state) => state.cart.items);
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
 
-  const totalAmount = cartItems.reduce((total, item) => total + item.Price * item.quantity, 0);
+    const handleIncrease = (item) => dispatch(addToCart(item));
+    const handleDecrease = (item) => dispatch(removeFromCart(item._id));
 
-  return (
-    <div className="container my-5 cart-container">
-      <h2 className="text-center mb-4">Your Cart</h2>
-      {cartItems.length === 0 ? (
-        <p className="text-center">No items in cart</p>
-      ) : (
-        <>
-          {cartItems.map(item => (
-            <div key={item._id} className="cart-item">
-              <img src={item.Img} alt={item.Name} />
-              <div>
-                <h5>{item.Name}</h5>
-                <p>₹{item.Price}</p>
-              </div>
-              <div className="cart-quantity-controls">
-                <button onClick={() => updateQuantity(item._id, -1)}>-</button>
-                <span>{item.quantity}</span>
-                <button onClick={() => updateQuantity(item._id, 1)}>+</button>
-              </div>
-              <button className="btn btn-danger" onClick={() => removeFromCart(item._id)}>Remove</button>
-            </div>
-          ))}
+    // Calculate total amount
+    const totalAmount = cartItems.reduce((acc, item) => acc + item.Price * item.quantity, 0);
 
-          <div className="text-end fw-bold fs-5 mt-4">
-            Total: ₹{totalAmount}
-          </div>
+    return (
+        <div className="cart-page page-container">
+            <h2 className="cart-title">Your Shopping Cart</h2>
 
-         <button
-            className="btn btn-warning px-4 py-2 fw-bold rounded-pill shadow"
-            onClick={() => navigate('/verify_payment', { state: { amount: totalAmount } })}
-          >
-            Buy Now
-          </button>
-        </>
-      )}
-    </div>
-  );
+            {cartItems.length === 0 ? (
+                <div className="empty-cart-msg">
+                    <h2>Your cart is empty</h2>
+                    <p>Looks like you haven't added any products yet.</p>
+                </div>
+            ) : (
+                <div className="cart-content">
+                    {/* Left Side: Cart Items */}
+                    <div className="cart-items-list">
+                        {cartItems.map((item) => (
+                            <div key={item._id} className="cart-item-card glass-card">
+                                <div className="cart-item-img-container">
+                                    <img
+                                        src={item.Img}
+                                        alt={item.Name}
+                                        className="cart-item-img"
+                                    />
+                                </div>
+                                <div className="cart-item-details">
+                                    <h5 className="cart-item-title">{item.Name}</h5>
+                                    <p className="cart-item-price">₹{item.Price}</p>
+                                    <div className="cart-item-actions">
+                                        <div className="cart-qty-controls">
+                                            <button 
+                                                className="btn-qty" 
+                                                onClick={() => handleDecrease(item)}
+                                            >
+                                                -
+                                            </button>
+                                            <span className="qty-text">{item.quantity}</span>
+                                            <button 
+                                                className="btn-qty" 
+                                                onClick={() => handleIncrease(item)}
+                                            >
+                                                +
+                                            </button>
+                                        </div>
+                                        <button 
+                                            className="btn-remove"
+                                            onClick={() => dispatch(removeFromCart(item._id))}
+                                        >
+                                            Remove
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+
+                    {/* Right Side: Total Price & Checkout */}
+                    <div className="cart-summary-section">
+                        <div className="cart-summary glass-card">
+                            <h4 className="summary-title">Order Summary</h4>
+                            <hr className="summary-divider" />
+                            <div className="summary-row">
+                                <span className="summary-text">Total Items:</span>
+                                <span className="summary-text">{cartItems.length}</span>
+                            </div>
+                            <div className="summary-row summary-total-row">
+                                <span className="summary-total">Total Amount:</span>
+                                <span className="summary-total">₹{totalAmount}</span>
+                            </div>
+                            <button 
+                                className="btn-checkout"
+                                onClick={() => navigate('/verify_payment', { state: { amount: totalAmount } })}
+                            >
+                                Proceed to Checkout
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
+        </div>
+    );
 };
 
 export default CartPage;

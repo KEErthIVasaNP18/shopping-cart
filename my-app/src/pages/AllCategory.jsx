@@ -15,30 +15,26 @@ const AllCategories = () => {
         }
     }
     useEffect(() => {
-
         fetchCategories();
     }, []);
 
     return (
-        <div className="container my-5" style={{ minHeight: '100vh' }}>
-            <h2 className="text-center mb-5 fw-bold text-primary">Explore Categories</h2>
-            <div className="row g-4">
+        <div className="all-categories-page page-container">
+            <h2 className="categories-title">Explore Categories</h2>
+            <div className="categories-grid">
                 {categories.map((category) => (
-                    <div key={category._id} className="col-sm-6 col-md-4 col-lg-3">
-                        <Link to={`/category/${category._id}`} className="text-decoration-none">
-                            <div className="glass-card p-4 text-center">
-                                <div className="mb-3">
-                                    <i className="bi bi-tags-fill fs-2 text-warning"></i>
+                    <div key={category._id} className="category-col">
+                        <Link to={`/category/${category._id}`} className="category-link">
+                            <div className="category-card glass-card">
+                                <div className="category-icon">
+                                    <i className="bi bi-tags-fill"></i>
                                 </div>
-                                <h5 className="text-dark fw-semibold">{category.Category}</h5>
+                                <h5 className="category-name">{category.Category}</h5>
                             </div>
                         </Link>
-                        
                     </div>
                 ))}
             </div>
-
-
         </div>
     );
 };

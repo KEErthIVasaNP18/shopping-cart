@@ -53,7 +53,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Post from '../components/post';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import Carousel from '../carousel';
 import './ProductList.css';
 import './categories.css';
@@ -77,22 +76,22 @@ function ProductList({ search }) {
 
   // Filter posts based on the search term
   const filteredPosts = posts.filter((product) =>
-    product.Name.toLowerCase().includes(search.toLowerCase()) // Adjust 'title' if your field is different
+    product.Name.toLowerCase().includes(search.toLowerCase())
   );
 
   return (
-    <div>
+    <div className="product-list-page">
       <Carousel />
-      <div className="bg-light py-1 min-vh-80" style={{ marginTop: '20px' }}>
-        <h1 className="text-center mb-1 fw-bold">Latest Posts</h1>
-        <div className="container">
-          <div className="d-flex flex-wrap justify-content-center">
+      <div className="product-list-section">
+        <h1 className="section-title">Latest Posts</h1>
+        <div className="page-container">
+          <div className="product-grid">
             {filteredPosts.length > 0 ? (
               filteredPosts.map((product) => (
                 <Post key={product._id} product={product} />
               ))
             ) : (
-              <h3>No matching products found</h3>
+              <h3 className="no-products-msg">No matching products found</h3>
             )}
           </div>
         </div>
