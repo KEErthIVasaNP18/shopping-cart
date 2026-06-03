@@ -31,7 +31,7 @@ const RazorpayPayment = () => {
 
   const sendOtp = async () => {
     try {
-      const res = await axios.post('http://localhost:5500/sendOtp', { email });
+      const res = await axios.post('https://your-backend.onrender.com/sendOtp', { email });
       if (res.data.message === 'OTP sent successfully') {
         alert('OTP sent to your email');
         setOtpSent(true);
@@ -44,7 +44,7 @@ const RazorpayPayment = () => {
 
   const verifyOtp = async () => {
     try {
-      const res = await axios.post('http://localhost:5500/verifyOtp', { email, otp: enteredOtp });
+      const res = await axios.post('https://your-backend.onrender.com/verifyOtp', { email, otp: enteredOtp });
       if (res.data.message === 'OTP verified successfully') {
         alert('OTP verified');
         setVerified(true);
@@ -61,7 +61,7 @@ const RazorpayPayment = () => {
     if (!verified) return alert("Please verify OTP first");
 
     try {
-      const { data: order } = await axios.post('http://localhost:5500/create-order', { amount });
+      const { data: order } = await axios.post('https://your-backend.onrender.com/create-order', { amount });
 
       const options = {
         key: 'rzp_test_uVn1nCMdkKJ7qH',
@@ -78,7 +78,7 @@ const RazorpayPayment = () => {
           };
 
           try {
-            const res = await axios.post('http://localhost:5500/verify-payment', verifyData);
+            const res = await axios.post('https://your-backend.onrender.com/verify-payment', verifyData);
             if (res.data.message === 'Payment successful') {
               alert('Payment Successful!');
               navigate('/');

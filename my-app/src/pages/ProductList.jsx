@@ -63,7 +63,7 @@ function ProductList({ search }) {
   // Fetch products
   const fetchPost = async () => {
     try {
-      const response = await axios.get('http://localhost:5500/api/posts');
+      const response = await axios.get(`https://your-backend.onrender.com/api/posts/`);
       setPosts(response.data);
     } catch (error) {
       console.error("Error fetching posts:", error);

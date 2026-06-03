@@ -13,7 +13,7 @@ useEffect(() => {
   const fetchData = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:5500/api/posts/${id}`
+        `https://your-backend.onrender.com/api/posts/${id}`
       );
       setPdetails(response.data);
     } catch (error) {
