@@ -13,7 +13,7 @@ useEffect(() => {
   const fetchData = async () => {
     try {
       const response = await axios.get(
-        `https://your-backend.onrender.com/api/posts/${id}`
+        `https://e-commerce-1-6avq.onrender.com/api/posts/${id}`
       );
       setPdetails(response.data);
     } catch (error) {

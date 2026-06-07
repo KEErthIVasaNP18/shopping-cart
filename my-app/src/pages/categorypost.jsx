@@ -13,12 +13,12 @@ function CategoryPost() {
 
     useEffect(() => {
         const fetchCategory = async () => {
-            const response = await axios.get(`https://your-backend.onrender.com/api/categories/${id}`);
+            const response = await axios.get(`https://e-commerce-1-6avq.onrender.com/api/categories/${id}`);
             setCategory(response.data);
         };
 
         const fetchPost = async () => {
-            const response = await axios.get(`https://your-backend.onrender.com/api/posts/category/${id}`);
+            const response = await axios.get(`https://e-commerce-1-6avq.onrender.com/api/posts/category/${id}`);
             setPosts(response.data);
         };
 
