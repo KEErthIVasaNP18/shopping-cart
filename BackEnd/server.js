@@ -8,15 +8,19 @@ const postRoutes = require('./routes/post');
 const categoryRoutes = require('./routes/category');
 const otpStore = require('./otpStore');
 const nodemailer = require('nodemailer')
+const dotenv = require("dotenv");
+
 
 const app = express();
-const PORT = 5500;
+const PORT = process.env.PORT || 5500;
 
 app.use(cors());
 app.use(bodyParser.json());
 
+dotenv.config()
+
 // MongoDB connection
-mongoose.connect('mongodb://localhost:27017/E_commerce')
+mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log('MongoDB connected'))
   .catch(err => console.log('MongoDB error:', err));
 
