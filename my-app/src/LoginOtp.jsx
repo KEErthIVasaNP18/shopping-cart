@@ -14,7 +14,7 @@ const OtpLoginForm = () => {
     if (!email) return setMessage("Email is required");
 
     try {
-      const res = await axios.post('https://e-commerce-1-6avq.onrender.com/sendOtp', { email });
+      const res = await axios.post('http://localhost:5500/sendOtp', { email });
       setOtpSent(true);
       setMessage(res.data.message);
     } catch (err) {
@@ -28,7 +28,7 @@ const OtpLoginForm = () => {
     if (!otp) return setMessage("OTP is required");
 
     try {
-      const res = await axios.post('https://e-commerce-1-6avq.onrender.com/verifyOtp', { email, otp });
+      const res = await axios.post('http://localhost:5500/verifyOtp', { email, otp });
       setMessage(res.data.message);
 
       // Save login info

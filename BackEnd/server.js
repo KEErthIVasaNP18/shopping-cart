@@ -18,8 +18,8 @@ app.use(cors());
 app.use(bodyParser.json());
 
 // MongoDB connection
-mongoose.connect(process.env.MONGO_URI)
-  .then(() => console.log('MongoDB connected'))
+mongoose.connect("mongodb://localhost:27017/E_commerce")
+  .then(() => console.log('MongoDB connected (Local)'))
   .catch(err => console.log('MongoDB error:', err));
 
 app.use('/api/posts', postRoutes);

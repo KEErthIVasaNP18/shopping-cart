@@ -23,7 +23,7 @@ const AuthPage = () => {
     }
 
     try {
-      const res = await axios.post('https://e-commerce-1-6avq.onrender.com/sendOtp', { email });
+      const res = await axios.post('http://localhost:5500/sendOtp', { email });
       setOtpSent(true);
       setMessage(res.data.message || 'OTP Sent successfully!');
     } catch (err) {
@@ -40,7 +40,7 @@ const AuthPage = () => {
     }
 
     try {
-      const res = await axios.post('https://e-commerce-1-6avq.onrender.com/verifyOtp', { email, otp });
+      const res = await axios.post('http://localhost:5500/verifyOtp', { email, otp });
       setMessage(res.data.message);
       
       // On success, dispatch redux and navigate
