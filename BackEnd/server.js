@@ -18,8 +18,8 @@ app.use(cors());
 app.use(bodyParser.json());
 
 // MongoDB connection
-mongoose.connect("mongodb://localhost:27017/E_commerce")
-  .then(() => console.log('MongoDB connected (Local)'))
+mongoose.connect(process.env.MONGO_URI)
+  .then(() => console.log('MongoDB connected'))
   .catch(err => console.log('MongoDB error:', err));
 
 app.use('/api/posts', postRoutes);
@@ -67,7 +67,8 @@ app.post('/verify-payment', (req, res) => {
 
 
 app.post('/sendOtp', async (req, res) => {
-  const { email } = req.body;
+  let { email } = req.body;
+  if (email) email = email.trim().toLowerCase();
 
   const otp = Math.floor(100000 + Math.random() * 900000); // 6-digit OTP
 
@@ -104,7 +105,9 @@ app.post('/sendOtp', async (req, res) => {
 
 // Route to verify OTP
 app.post('/verifyOtp', (req, res) => {
-  const { email, otp } = req.body;
+  let { email, otp } = req.body;
+  if (email) email = email.trim().toLowerCase();
+  if (otp) otp = otp.trim();
 
   if (!email || !otp) {
     return res.status(400).json({ message: 'Email and OTP are required' });
