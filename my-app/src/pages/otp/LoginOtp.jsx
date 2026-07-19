@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { loginUser } from '../../redux/authSlice';
 import './OtpLoginForm.css';
 
 const OtpLoginForm = () => {
@@ -9,6 +11,7 @@ const OtpLoginForm = () => {
   const [otp, setOtp] = useState('');
   const [message, setMessage] = useState('');
   const navigate = useNavigate(); // For navigation
+  const dispatch = useDispatch(); // For updating global login state
 
   const sendOtp = async () => {
     if (!email) return setMessage("Email is required");
@@ -31,8 +34,14 @@ const OtpLoginForm = () => {
       const res = await axios.post('http://localhost:5500/verifyOtp', { email, otp });
       setMessage(res.data.message);
 
-      // Save login info
-      localStorage.setItem("userEmail", email);
+      // Store locally (async/sync) like AuthPage does
+      const token = 'mock-jwt-token-' + Date.now();
+      const user = { email: email.toLowerCase() };
+      localStorage.setItem('token', token);
+      localStorage.setItem('user', JSON.stringify(user));
+      
+      // Update Redux state so the router allows access to '/'
+      dispatch(loginUser({ token, user }));
 
       // Redirect regardless of backend "success" flag
       navigate("/");

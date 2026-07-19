@@ -16,6 +16,7 @@ import AuthPage from './pages/auth/AuthPage'; // New styled AuthPage
 import WishlistPage from './pages/mainScreens/WishlistPage'; // New WishlistPage
 import RazorpayPayment from './pages/razorpay/RazorPayment';
 import UserDetail from './pages/user/UserDetail'; // New User Detail Page
+import OtpLoginForm from './pages/otp/LoginOtp'; // Added OTP Login Page
 import ShippingPage from './pages/shipping/ShippingPage'; // New Shipping Page
 import PrivacyPolicy from './pages/legal/PrivacyPolicy';
 import CookiePolicy from './pages/legal/CookiePolicy';
@@ -76,6 +77,7 @@ function App() {
           ) : (
             <>
               <Route path="/login" element={<AuthPage />} />
+              <Route path="/login-otp" element={<OtpLoginForm />} />
               <Route path="*" element={<Navigate to="/login" replace />} />
             </>
           )}

@@ -179,6 +179,9 @@ const AuthPage = () => {
             <p className="auth-toggle">
               <span onClick={() => { setView('forgot-password'); setMessage(''); }}>Forgot Password?</span>
             </p>
+            <p className="auth-toggle">
+              <span onClick={() => navigate('/login-otp')}>Login with OTP instead</span>
+            </p>
           </form>
         )}
 
