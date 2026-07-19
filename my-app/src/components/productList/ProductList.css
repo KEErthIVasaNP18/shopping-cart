@@ -1,0 +1,82 @@
+/* ════════════════════════════════════════════════
+   PRODUCT LIST PAGE — Professional E-Commerce
+════════════════════════════════════════════════ */
+
+/* ── Splash Screen ── */
+.splash-screen {
+  position: fixed;
+  inset: 0;
+  background: var(--bg-white);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.loader {
+  text-align: center;
+}
+
+.loader h1 {
+  font-family: 'Manrope', sans-serif;
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--brand);
+  margin-bottom: 1.5rem;
+  letter-spacing: -0.5px;
+}
+
+/* ── Spinner ── */
+.spinner {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 3px solid var(--brand-light);
+  border-top-color: var(--brand);
+  animation: spin 0.8s linear infinite;
+  margin: 0 auto;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Page wrapper ── */
+.product-list-page { width: 100%; }
+
+.product-list-section { padding: 0; }
+
+/* ── Section Title ── */
+.section-title {
+  font-family: 'Manrope', sans-serif;
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 800;
+  color: var(--text-primary);
+  margin-bottom: 2rem;
+  letter-spacing: -0.5px;
+  padding-bottom: 0.6rem;
+  border-bottom: 3px solid var(--brand);
+  display: block;
+}
+
+/* ── Product Grid ── */
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 1.5rem;
+  width: 100%;
+}
+
+/* ── Empty State ── */
+.no-products-msg {
+  grid-column: 1 / -1;
+  text-align: center;
+  font-size: 1.1rem;
+  color: var(--text-muted);
+  padding: 4rem 0;
+}

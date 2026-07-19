@@ -1,0 +1,142 @@
+/* ════════════════════════════════════════════════
+   SHIPPING PAGE — Professional E-Commerce
+════════════════════════════════════════════════ */
+
+.shipping-page {
+  min-height: calc(100vh - var(--nav-height));
+  padding: 3rem 1.5rem;
+  background: var(--bg-subtle);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  position: relative;
+}
+
+/* subtle bg shapes */
+.shipping-shape {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(70px);
+  z-index: 0;
+  pointer-events: none;
+}
+
+.shipping-shape-1 {
+  width: 280px;
+  height: 280px;
+  background: rgba(13, 148, 136, 0.08);
+  top: -40px;
+  left: -60px;
+}
+
+.shipping-shape-2 {
+  width: 320px;
+  height: 320px;
+  background: rgba(5, 150, 105, 0.06);
+  bottom: -80px;
+  right: -60px;
+}
+
+/* ── Card ── */
+.shipping-card {
+  position: relative;
+  z-index: 1;
+  background: var(--bg-white);
+  border: 1px solid var(--border);
+  border-radius: var(--r-2xl);
+  padding: 2.5rem 2.25rem;
+  width: 100%;
+  max-width: 580px;
+  box-shadow: var(--shadow-xl);
+}
+
+/* Teal top accent */
+.shipping-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--brand);
+  border-radius: var(--r-2xl) var(--r-2xl) 0 0;
+}
+
+.shipping-title {
+  font-family: 'Manrope', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin-bottom: 1.75rem;
+  text-align: center;
+  letter-spacing: -0.5px;
+}
+
+/* ── Form ── */
+.shipping-form .form-group { margin-bottom: 1.1rem; }
+
+.shipping-form label {
+  display: block;
+  margin-bottom: 0.4rem;
+  font-size: 0.825rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.shipping-form input {
+  width: 100%;
+  padding: 0.7rem 0.9rem;
+  background: var(--bg-white);
+  border: 1.5px solid var(--border);
+  border-radius: var(--r-sm);
+  color: var(--text-primary);
+  font-size: 0.925rem;
+  transition: all var(--duration-md) var(--ease);
+  font-family: inherit;
+  outline: none;
+}
+
+.shipping-form input::placeholder { color: var(--text-muted); }
+
+.shipping-form input:focus {
+  border-color: var(--brand);
+  box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.12);
+}
+
+.shipping-form .row {
+  display: flex;
+  gap: 1rem;
+}
+
+.shipping-form .row .form-group { flex: 1; }
+
+/* ── Proceed Button ── */
+.btn-proceed {
+  width: 100%;
+  padding: 0.875rem;
+  background: var(--brand);
+  border: none;
+  border-radius: var(--r-sm);
+  color: var(--text-inverse);
+  font-size: 0.975rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all var(--duration) var(--ease);
+  margin-top: 1.25rem;
+  box-shadow: var(--shadow-brand);
+  letter-spacing: 0.02em;
+  font-family: inherit;
+}
+
+.btn-proceed:hover {
+  background: var(--brand-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(13, 148, 136, 0.35);
+}
+
+.btn-proceed:active { transform: scale(0.98); }
+
+@media (max-width: 600px) {
+  .shipping-form .row { flex-direction: column; gap: 0; }
+  .shipping-card { padding: 2rem 1.25rem; border-radius: var(--r-xl); }
+}

@@ -1,0 +1,114 @@
+/* ════════════════════════════════════════════════
+   PRODUCT DETAIL — Professional E-Commerce
+════════════════════════════════════════════════ */
+
+.loading-msg {
+  text-align: center;
+  padding: 5rem 0;
+  color: var(--text-muted);
+  font-size: 0.95rem;
+}
+
+.product-detail-page {
+  padding-top: 1.5rem;
+  padding-bottom: 4rem;
+}
+
+.product-detail-title {
+  font-family: 'Manrope', sans-serif;
+  font-size: clamp(1.3rem, 3vw, 1.75rem);
+  font-weight: 800;
+  color: var(--text-primary);
+  margin-bottom: 2rem;
+  letter-spacing: -0.3px;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+/* ── Card ── */
+.product-detail-card {
+  display: flex;
+  flex-direction: row;
+  overflow: hidden;
+  max-width: 900px;
+  margin: 0 auto;
+  background: var(--bg-white);
+  border: 1px solid var(--border);
+  border-radius: var(--r-xl);
+  box-shadow: var(--shadow-lg);
+}
+
+.product-detail-img-wrapper {
+  flex: 1;
+  max-width: 400px;
+  overflow: hidden;
+  background: var(--bg-subtle);
+}
+
+.product-detail-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.4s var(--ease);
+}
+
+.product-detail-card:hover .product-detail-img {
+  transform: scale(1.04);
+}
+
+.product-detail-info {
+  flex: 1;
+  padding: 2.5rem 2rem;
+  display: flex;
+  flex-direction: column;
+  border-left: 1px solid var(--border);
+}
+
+.detail-name {
+  font-family: 'Manrope', sans-serif;
+  font-size: 1.65rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin-bottom: 1rem;
+  line-height: 1.25;
+  letter-spacing: -0.4px;
+}
+
+.detail-about {
+  margin-bottom: 1.75rem;
+  flex: 1;
+}
+
+.detail-about strong {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 0.5rem;
+}
+
+.detail-about p {
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: var(--text-secondary);
+}
+
+.detail-price {
+  font-family: 'Manrope', sans-serif;
+  font-size: 1.9rem;
+  font-weight: 800;
+  color: var(--brand-dark);
+  margin-bottom: 1.5rem;
+  letter-spacing: -0.5px;
+}
+
+/* ── Mobile ── */
+@media (max-width: 768px) {
+  .product-detail-card { flex-direction: column; }
+  .product-detail-img-wrapper { max-width: 100%; height: 280px; }
+  .product-detail-info { padding: 1.75rem 1.25rem; border-left: none; border-top: 1px solid var(--border); }
+  .detail-name { font-size: 1.35rem; }
+}

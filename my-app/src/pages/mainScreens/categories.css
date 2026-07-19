@@ -1,0 +1,47 @@
+/* ════════════════════════════════════════════════
+   CATEGORY POST PAGE — Professional E-Commerce
+════════════════════════════════════════════════ */
+
+.category-post-page {
+  padding-top: 1.5rem;
+  padding-bottom: 3rem;
+}
+
+.category-post-content { padding: 2rem 2rem; }
+
+.category-header { margin-bottom: 2rem; }
+
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-decoration: none;
+  margin-bottom: 1.5rem;
+  transition: color var(--duration) var(--ease);
+}
+
+.back-link:hover {
+  color: var(--brand);
+}
+
+.category-subtitle {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--brand);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  display: block;
+  margin-bottom: 0.35rem;
+}
+
+.category-title {
+  font-family: 'Manrope', sans-serif;
+  font-size: clamp(1.5rem, 3.5vw, 2.25rem);
+  font-weight: 800;
+  color: var(--text-primary);
+  margin: 0;
+  letter-spacing: -0.5px;
+}

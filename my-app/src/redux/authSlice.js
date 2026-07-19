@@ -1,8 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+const storedUser = localStorage.getItem('user');
+const storedToken = localStorage.getItem('token');
+
 const initialState = {
-  isAuthenticated: false,
-  user: null, // e.g., { email: 'user@example.com' }
+  isAuthenticated: !!storedToken,
+  user: storedUser ? JSON.parse(storedUser) : null,
+  token: storedToken || null,
 };
 
 const authSlice = createSlice({
@@ -11,11 +15,18 @@ const authSlice = createSlice({
   reducers: {
     loginUser: (state, action) => {
       state.isAuthenticated = true;
-      state.user = action.payload;
+      // Depending on how it's dispatched, handle both { user, token } and direct user object
+      if (action.payload.user) {
+        state.user = action.payload.user;
+        state.token = action.payload.token;
+      } else {
+        state.user = action.payload;
+      }
     },
     logoutUser: (state) => {
       state.isAuthenticated = false;
       state.user = null;
+      state.token = null;
     },
   },
 });
